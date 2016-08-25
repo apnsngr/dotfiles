@@ -1,0 +1,24 @@
+#! /bin/zsh
+#
+# Written by Andrew Pensinger
+# SEE LICENSE
+
+module="Vim"
+
+description="Vim configuration file"
+
+links=(vimrc $HOME/.vimrc)
+
+function install {
+    mkslinks $links
+}
+
+function upgrade {
+    echo "Not implemented"
+}
+
+function remove {
+    rm $HOME/.vimrc
+}
+
+. $DOTFILE_DIR/util/module.subr.zsh

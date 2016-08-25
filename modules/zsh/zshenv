@@ -1,0 +1,26 @@
+# -*- shell-script -*-
+#
+# zsh environment configuration file
+#
+# OS specific configuration should be put in .zshenv.os
+# Local configuration should be put in .zshenv.local
+#
+# Written by Andrew Pensinger
+
+# Set up the path
+typeset -U path
+path=(
+  $HOME/.root/bin
+  $HOME/.root/go/bin
+  $HOME/.cabal/bin
+  $path
+)
+export path
+
+# Set the GOPATH if the go directory exists
+[ -d $HOME/.root/go ] && export GOPATH=$HOME/.root/go
+
+# Load OS specific configuration
+[ -f $HOME/.zshenv.os ] && source $HOME/.zshenv.os
+# Load local configuration
+[ -f $HOME/.zshenv.local ] && source $HOME/.zshenv.local

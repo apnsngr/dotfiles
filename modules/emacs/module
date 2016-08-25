@@ -1,0 +1,39 @@
+#! /bin/zsh
+#
+# Written by Andrew Pensinger
+# SEE LICENSE
+
+module="Emacs"
+
+description="Spacemacs Emacs configuration with .spacemacs"
+
+links=(spacemacs $HOME/.spacemacs)
+
+spacemacs_url="https://github.com/syl20bnr/spacemacs.git"
+
+function install {
+    if [[ -d "$HOME/.emacs.d" ]]; then
+        echo "Backing up existing Emacs directory"
+        mv $HOME/.emacs.d $HOME/.emacs.d.backup
+    fi
+
+    if [[ -f "$HOME/.emacs" ]]; then
+        echo "Backing up existing Emacs configuration"
+        mv $HOME/.emacs $HOME/.emacs.backup
+    fi
+
+    git clone $spacemacs_url $HOME/.emacs.d
+
+    mkslinks $links
+}
+
+function update {
+    echo "Use Emacs to update Spacemacs"
+}
+
+function remove {
+    rm $HOME/.zshrc
+    echo "Please manually remove .emacs.d"
+}
+
+. $DOTFILE_DIR/util/module.subr.zsh

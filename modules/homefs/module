@@ -1,0 +1,30 @@
+#! /bin/zsh
+#
+# Written by Andrew Pensinger
+# SEE LICENSE
+
+module="HomeFS"
+
+description="Create Unix filesystem hierarchy in home directory"
+
+dirs=($HOME/.root
+      $HOME/.root/bin
+      $HOME/.root/include
+      $HOME/.root/lib
+      $HOME/.root/share
+      $HOME/.root/src
+      $HOME/.root/go/bin)
+
+function install {
+    mkdirs $dirs
+}
+
+function upgrade {
+    echo "Not implemented"
+}
+
+function remove {
+    echo "Please manually remove $HOME/.root"
+}
+
+. $DOTFILE_DIR/util/module.subr.zsh

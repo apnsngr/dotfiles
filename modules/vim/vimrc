@@ -1,0 +1,74 @@
+" Andrew Pensinger's vimrc
+"
+" I use Spacemacs as my main editor, so my vim configuration is pretty minimal.
+
+" Turn off vi compatibility
+set nocp
+
+""" Colors
+" Turn on syntax highlighting
+syntax enable
+" Show matching curly braces and parenthesis
+set showmatch
+
+""" Spaces and tabs
+" Number of visual spaces per tab
+set tabstop=4
+" NUmber of spaces in tab when editing
+set softtabstop=4
+" Turn tabs into spaces
+set expandtab
+" Well, except when editing a makefile
+autocmd FileType make setlocal noexpandtab
+" Set text width
+set textwidth=79
+" Automatically indent
+set autoindent
+" Automatically indents for C syntax
+set smartindent
+" Python smart indents
+autocmd FileType python setlocal smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
+
+""" UI
+" Show line numbers
+set number
+" Show relative line numbers
+"set relativenumber
+" Leave some lines of text when scrolling
+set scrolloff=5
+" Graphical auto-complete menu
+set wildmenu
+" Quick cursor finding
+set cursorline
+"set cursorcolumn
+" Always show the status line
+set laststatus=2
+" Set the list character for end of line
+set listchars=eol:¬
+" Show hidden chatacters
+"set list
+
+""" Searching
+" Search as characters are entered
+set incsearch
+" Highlight search matches
+set hlsearch
+
+""" Folding
+
+""" Keybindings
+" Remap leader to <Space>
+let mapleader = "\<Space>"
+" Map fd to escape
+imap fd <Esc>
+" Allow backspacing over everything in insert mode
+set backspace=indent,eol,start
+" Toggle gundo
+nnoremap <Leader>u :GundoToggle<CR>
+
+""" Backups
+" Don't use swapfiles
+set noswapfile
+
+""" CUSTOM GIT SETTINGS """"""
+autocmd Filetype gitcommit setlocal spell textwidth=72

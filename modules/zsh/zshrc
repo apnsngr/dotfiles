@@ -1,0 +1,100 @@
+# -*- shell-script -*-
+#
+# Main zsh configuration file
+#
+# OS specific configuration should be put in .zshrc.os
+# Local configuration should be put in .zshrc.local
+#
+# Written by Andrew Pensinger
+# License: BSD
+
+# Command history
+HISTFILE=~/.histfile
+HISTSIZE=1000
+SAVEHIST=1000
+
+# Emacs Keybindings
+# I normally use Vi keybindings for things, but I find the emacs ones are better
+# for shells.
+bindkey -e
+
+# Environment variables
+export EDITOR=emacsclient
+PURE_PROMPT_SYMBOL=%#
+
+# Command Completion
+autoload -U compinit
+compinit
+zstyle ':completion:*' menu select
+# End of Command Completion
+
+# Load Antigen
+source $HOME/.root/src/antigen/antigen.zsh
+
+# Pure prompt
+antigen bundle mafredri/zsh-async
+antigen bundle sindresorhus/pure
+# Syntax highlighting
+antigen bundle zsh-users/zsh-syntax-highlighting
+
+# Tool plugins
+antigen bundle git
+antigen bundle pip
+
+# Old prompt - left for reference and as a backup
+#autoload -Uz vcs_info
+#zstyle ':vcs_info:*' enable git
+#zstyle ':vcs_info:git*' formats " [%b]"
+#precmd() {
+#  vcs_info
+#}
+#setopt prompt_subst
+# %n - username
+# %~ - current working directory with ~ substituted
+# %(?..) - Conditional based on exit status of last command
+# %F - set color
+# %f - reset color
+# %# - # if root, % if not
+#PROMPT='[%n %~]${vcs_info_msg_0_}%(?.%F{green}.%F{red})%#%f '
+# End of old prompt
+
+# User defined functions
+function cdl() {
+  cd $1
+  ls
+}
+function mkcd() {
+  mkdir -p $1
+  cd $1
+}
+# End of User defined functions
+
+# Aliases
+alias ll="ls -la"
+alias tl="clear; task list limit:10"
+alias tll="clear; task list"
+alias cl="clear"
+alias ch="cd; clear"
+alias gst="git status -sb"
+alias ga="git add"
+alias gc="git commit"
+alias gp="git push"
+alias ggg="git log --oneline --abbrev-commit --all --graph --decorate --color"
+alias gg="git log --oneline --abbrev-commit --all --graph --decorate --color | head -n 15"
+# Start emacs server
+alias es="emacs --daemon"
+# Open file in running emacs (server)
+alias e="emacsclient -n"
+# Open an emacsclient in a GUI window
+alias eg="emacsclient -c"
+# Open an emacsclient in the terminal
+alias et="emacsclient -nw"
+# Open new emacs in terminal
+# alias emacs="emacs -nw"
+alias v="vim"
+# End of Aliases
+
+# Load OS specific configuration
+[ -f $HOME/.zshrc.os ] && source $HOME/.zshrc.os
+# Load local configuration
+[ -f $HOME/.zshrc.local ] && source $HOME/.zshrc.local

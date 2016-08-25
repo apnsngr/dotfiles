@@ -1,0 +1,39 @@
+#! /bin/zsh
+#
+# Written by Andrew Pensinger
+# SEE LICENSE
+
+module="Zsh"
+
+description="Zsh configuration files and plugins"
+
+links=(zshrc  $HOME/.zshrc
+       zshenv $HOME/.zshenv)
+
+function install {
+    if [[ ! -d "$HOME/.root/src/antigen" ]]; then
+        git clone https://github.com/zsh-users/antigen.git $HOME/.root/src/antigen
+    fi
+
+    mkslinks $links
+}
+
+function update {
+    if [[ -d "$HOME/.root/src/antigen" ]]; then
+        cd $HOME/.root/src/antigen
+        git pull
+        cd $DOTFILE_MODULE_DIR
+    else
+        echo "Zsh Antigen not installed!"
+    fi
+}
+
+function remove {
+    rm $HOME/.zshrc
+    rm $HOME/.zshenv
+    if [[ -d "$HOME/.root/src/antigen" ]]; then
+        rm -rf $HOME/.root/src/antigen
+    fi
+}
+
+. $DOTFILE_DIR/util/module.subr.zsh

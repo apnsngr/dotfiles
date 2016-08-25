@@ -1,0 +1,59 @@
+#! /bin/zsh
+#
+# Dotfile manager
+#
+# Written by Andrew Pensinger
+# SEE LICENSE
+
+usage="usage: dotfiles (install | upgrade | remove) [module]
+       dotfiles (-h | --help)"
+
+help="Dotfile Manager
+
+Install, upgrade, or remove [module]. If [module] is not given, then the module
+with the same name as the OS will be installed.
+
+Environment Variables
+    DOTFILE_DIR   Directory containing the dotfile manager code. This defaults
+                  to the current directory.
+
+    DOTFILE_OS    The OS name to use for OS specific dotfile installation. If
+                  this is not set, it will automatically be determined.
+
+    DOTFILE_PATH  Colon separated directories to search for modules in. These
+                  directories will be searched before the directories in
+                  DOTFILE_DIR
+
+Exit Status
+    0 OK
+    1 Invalid number of arguments
+    2 Invalid operation
+    3 Module does not exist"
+
+# Set DOTFILE_DIR
+if [[ -z $DOTFILE_DIR ]]; then
+    export DOTFILE_DIR=$(pwd)
+fi
+
+. $DOTFILE_DIR/util/base.zsh
+
+# Check for help
+for arg in $@; do
+    if [[ $arg == "-h" || $arg == "--help" ]]; then
+        echo "$usage\n\n$help"
+        exit 0
+    fi
+done
+
+# Parse normal arguments
+if [[ $# -eq 1 ]]; then
+    module=$DOTFILE_OS
+elif [[ $# -eq 2 ]]; then
+    module=$2
+else
+    echo "$usage"
+    exit 1
+fi
+
+dotfile_exec $1 $module
+exit $?

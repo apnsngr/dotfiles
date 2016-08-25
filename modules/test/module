@@ -1,0 +1,34 @@
+#! /bin/zsh
+#
+# Test module
+#
+# Written by Andrew Pensinger
+# SEE LICENSE
+
+module="Test"
+
+description="A test module"
+
+dirs=($HOME/ice/tea $HOME/roast/beef)
+
+links=(a $HOME/a
+       b $HOME/b)
+
+function install {
+    mkdirs $dirs
+    mkslinks $links
+}
+
+function upgrade {
+    echo "Not implemented"
+}
+
+function remove {
+    rm $HOME/a
+    rm $HOME/b
+
+    rm -rf $HOME/ice/tea
+    rm -rf $HOME/roast/beef
+}
+
+. $DOTFILE_DIR/util/module.subr.zsh

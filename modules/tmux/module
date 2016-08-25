@@ -1,0 +1,24 @@
+#! /bin/zsh
+#
+# Written by Andrew Pensinger
+# SEE LICENSE
+
+module="TMUX"
+
+description="TMUX configuration file"
+
+links=(tmux.conf $HOME/.tmux.conf)
+
+function install {
+    mkslinks $links
+}
+
+function update {
+    echo "Not implemented"
+}
+
+function remove {
+    rm $HOME/.tmux.conf
+}
+
+. $DOTFILE_DIR/util/module.subr.zsh
