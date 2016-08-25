@@ -1,0 +1,25 @@
+#! /bin/zsh
+#
+# Written by Andrew Pensinger
+# SEE LICENSE
+
+module="Red Hat Enterprise Linux"
+
+description="Module to setup dotfiles on RHEL (specifically the Purdue ECN REHL 6 computers)"
+
+premodules=(homefs
+            zsh
+            emacs
+            vim
+            tmux)
+
+function install {
+}
+
+function update {
+}
+
+function remove {
+}
+
+. $DOTFILE_DIR/util/module.subr.zsh

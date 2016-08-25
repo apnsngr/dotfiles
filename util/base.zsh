@@ -36,6 +36,7 @@ if [[ -z $DOTFILE_OS ]]; then
             local distro=$(lsb_release -si)
             case $distro in
                 Ubuntu) export DOTFILE_OS="ubuntu" ;;
+                RedHatEnterpriseWorkstation) export DOTFILE_OS="redhat" ;;
                 *) echo "Unsupported Linux distribution: $distro" >&2 ;;
             esac
             ;;
