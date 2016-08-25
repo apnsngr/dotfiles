@@ -31,9 +31,6 @@ zstyle ':completion:*' menu select
 # Load Antigen
 source $HOME/.root/src/antigen/antigen.zsh
 
-# Pure prompt
-antigen bundle mafredri/zsh-async
-antigen bundle sindresorhus/pure
 # Syntax highlighting
 antigen bundle zsh-users/zsh-syntax-highlighting
 
@@ -41,22 +38,27 @@ antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle git
 antigen bundle pip
 
-# Old prompt - left for reference and as a backup
-#autoload -Uz vcs_info
-#zstyle ':vcs_info:*' enable git
-#zstyle ':vcs_info:git*' formats " [%b]"
-#precmd() {
-#  vcs_info
-#}
-#setopt prompt_subst
-# %n - username
-# %~ - current working directory with ~ substituted
-# %(?..) - Conditional based on exit status of last command
-# %F - set color
-# %f - reset color
-# %# - # if root, % if not
-#PROMPT='[%n %~]${vcs_info_msg_0_}%(?.%F{green}.%F{red})%#%f '
-# End of old prompt
+autoload -U is-at-least
+if is-at-least 5.0.0; then
+  # Pure prompt
+  antigen bundle mafredri/zsh-async
+  antigen bundle sindresorhus/pure
+else
+  autoload -Uz vcs_info
+  zstyle ':vcs_info:*' enable git
+  zstyle ':vcs_info:git*' formats " %b"
+  precmd() {
+    vcs_info
+  }
+  setopt prompt_subst
+  # %n - username
+  # %~ - current working directory with ~ substituted
+  # %(?..) - Conditional based on exit status of last command
+  # %F - set color
+  # %f - reset color
+  # %# - # if root, % if not
+  PROMPT=$'\n%~${vcs_info_msg_0_}\n%(?.%F{green}.%F{red})%#%f '
+fi
 
 # User defined functions
 function cdl() {
